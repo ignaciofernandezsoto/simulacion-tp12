@@ -14,7 +14,7 @@ public class Simulacion {
     private int tiempoDeLlegadaSubte;
     private int cantArrepentidos;
     private int personasQueEntraronAlSistemaDesdeLaCalle;
-    private int sumatoriaPersonasPorMinuto;
+    private int promedioPersonasEnAndenPorMinuto;
     private int sumatoriaLlegadasDeLaCalle;
     private int sumatoriaSalidasDeLaCalle;
 
@@ -33,7 +33,7 @@ public class Simulacion {
         this.cantArrepentidos = 0;
         this.tiempo = new Tiempo();
         this.personasQueEntraronAlSistemaDesdeLaCalle = 0;
-        this.sumatoriaPersonasPorMinuto = 0;
+        this.promedioPersonasEnAndenPorMinuto = 0;
         this.sumatoriaLlegadasDeLaCalle = 0;
         this.sumatoriaSalidasDeLaCalle = 0;
 
@@ -58,20 +58,14 @@ public class Simulacion {
 
                 System.out.println("Entra gente de la calle!");
 
-                this.sumatoriaPersonasPorMinuto += anden.getPersonasTotales();
-
+                this.promedioPersonasEnAndenPorMinuto += anden.getPersonasTotales()/(tiempo.getMinutosActuales()*tiempo.getDiasActuales());
                 turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
                 anden.restarPersonasLlegadasDelSubte();
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
+                this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasLlegadas;
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
                 cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
-
-                int personasQueEntraronAlAnden = personasLlegadas - cantArrepentidos;
-
-                this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasQueEntraronAlAnden;
-                if(personasQueEntraronAlAnden < 0)
-                    System.out.println("rip");
-                anden.agregarPersonasLlegadasDeLaCalle(personasQueEntraronAlAnden);
+                anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas - cantArrepentidos);
 
                 tiempo.avanzarMinutos(avanceDelTiempo);
             }
@@ -89,7 +83,7 @@ public class Simulacion {
 
         return new ConstructorDeResultado()
                 .construir(
-                        sumatoriaPersonasPorMinuto,
+                        promedioPersonasEnAndenPorMinuto,
                         sumatoriaLlegadasDeLaCalle,
                         sumatoriaSalidasDeLaCalle,
                         personasQueEntraronAlSistemaDesdeLaCalle,
