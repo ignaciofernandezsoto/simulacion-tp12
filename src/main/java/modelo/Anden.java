@@ -33,7 +33,12 @@ public class Anden {
     }
 
     public void agregarPersonasLlegadasDelSubte(int personasLlegadasDelSubte) {
-        this.personasLlegadasDelSubte += personasLlegadasDelSubte;
+
+        int personasActualmenteEnAnden = this.getPersonasTotales();
+        int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
+
+        this.personasLlegadasDelSubte += Math.min(cantidadRestante, personasLlegadasDelSubte);
+
     }
 
     public int getPersonasLlegadasDeLaCalle() {
@@ -41,7 +46,10 @@ public class Anden {
     }
 
     public void agregarPersonasLlegadasDeLaCalle(int personasLlegadasDeLaCalle) {
-        this.personasLlegadasDeLaCalle += personasLlegadasDeLaCalle;
+        int personasActualmenteEnAnden = this.getPersonasTotales();
+        int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
+
+        this.personasLlegadasDeLaCalle += Math.min(cantidadRestante, personasLlegadasDeLaCalle);
     }
 
     public void restarPersonasLlegadasDeLaCalle(int personas) {
