@@ -1,15 +1,17 @@
 package modelo.fdp.Noche;
 
-import modelo.fdp.FDP;
+import modelo.fdp.FDPIntervalos;
 
-public class CantPersonasLlegadasNoche extends FDP {
+public class CantPersonasLlegadasNoche extends FDPIntervalos {
+
     @Override
-    protected Double C() {
-        return null;
+    public int valorInicial() {
+        return 300;
     }
 
     @Override
-    protected Double medioM() {
-        return null;
+    public int valorFinal() {
+        return 420;
     }
+
 }

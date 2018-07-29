@@ -44,14 +44,14 @@ public class Simulacion {
 
         while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
             anden.restarPersonasLlegadasDelSubte(caudalDeSalida);
-            int personasLlegadas = turno.obtenerCantPersonasLlegadasAnden();
+            int personasLlegadas = turno.obtenerCantPersonasLlegadasAnden(subte.capacidadMaxima());
             int personasSupuestasEnAnden = anden.getPersonasTotales() + personasLlegadas;
             if(personasSupuestasEnAnden > anden.getCapacidadMaxima()) cantArrepentidos += personasLlegadas;
             else anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas);
 
             tiempo.avanzar(avanceDelTiempo);
         }
-        int personasBajadasDelSubte = turno.obtenerCantPersonasBajadasSubte();
+        int personasBajadasDelSubte = turno.obtenerCantPersonasBajadasSubte(subte.capacidadMaxima());
         if(!(subte.estasLleno(personasBajadasDelSubte) && anden.estasLleno())) {
             subte.restarPasajeros(personasBajadasDelSubte);
            int pasajerosSubidos = subte.agregarPasajeros(anden.getPersonasLlegadasDeLaCalle());

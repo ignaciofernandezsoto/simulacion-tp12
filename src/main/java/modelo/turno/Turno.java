@@ -1,26 +1,27 @@
 package modelo.turno;
 
-import modelo.Frecuencia;
-import modelo.fdp.FDP;
+import modelo.fdp.FDPIntervalos;
+
+import static java.lang.Math.min;
 
 public abstract class Turno {
 
-    private FDP cantPersonasBajadasDelSubte;
-    private FDP cantPersonaLlegadas;
+    private FDPIntervalos cantPersonasBajadasDelSubte;
+    private FDPIntervalos cantPersonaLlegadas;
     private int frecuencia;
 
-    public Turno(FDP cantPersonasBajadasDelSubte, FDP cantPersonaLlegadas, int frecuencia) {
+    public Turno(FDPIntervalos cantPersonasBajadasDelSubte, FDPIntervalos cantPersonaLlegadas, int frecuencia) {
         this.cantPersonasBajadasDelSubte = cantPersonasBajadasDelSubte;
         this.cantPersonaLlegadas = cantPersonaLlegadas;
         this.frecuencia = frecuencia;
     }
 
-    public int obtenerCantPersonasBajadasSubte() {
-        return this.cantPersonasBajadasDelSubte.obtenerValor().intValue();
+    public int obtenerCantPersonasBajadasSubte(int capacidadDelSubte) {
+        return min(this.cantPersonasBajadasDelSubte.obtenerValor(), capacidadDelSubte);
     }
 
-    public int obtenerCantPersonasLlegadasAnden() {
-        return this.cantPersonaLlegadas.obtenerValor().intValue();
+    public int obtenerCantPersonasLlegadasAnden(int capacidadDelSubte) {
+        return min(this.cantPersonaLlegadas.obtenerValor(), capacidadDelSubte);
     }
 
     public int obtenerFrecuencia() {
