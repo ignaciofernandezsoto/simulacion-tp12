@@ -14,6 +14,7 @@ public class Simulacion {
     private int tiempoDeLlegadaSubte;
     private int cantArrepentidos;
     private int caudalDeSalida = 10;
+    private int personasQueEntraronAlSistemaDesdeLaCalle;
 
     public Simulacion(int avanceDelTiempo,
                       int cantidadDeVagones,
@@ -29,6 +30,7 @@ public class Simulacion {
         this.turnoManager = new TurnoManager(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
         this.cantArrepentidos = 0;
         this.tiempo = new Tiempo();
+        this.personasQueEntraronAlSistemaDesdeLaCalle = 0;
 
     }
 
@@ -47,6 +49,7 @@ public class Simulacion {
             turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
             anden.restarPersonasLlegadasDelSubte(caudalDeSalida);
             int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
+            this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
             cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
             anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas-cantArrepentidos);
 
