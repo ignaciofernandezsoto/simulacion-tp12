@@ -25,7 +25,7 @@ public class App {
                 frecuenciaManana,
                 frecuenciaTarde,
                 frecuenciaNoche,
-                subteAComenzar,
+                subteAComenzar
         );
 
         Resultado resultado = simulacion.simular(capacidadDeAnden, caudalSalida);
