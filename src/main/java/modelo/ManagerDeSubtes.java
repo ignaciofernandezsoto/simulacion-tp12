@@ -3,7 +3,9 @@ package modelo;
 import modelo.subte.CAF;
 import modelo.subte.Eidan;
 import modelo.subte.Subte;
+import modelo.subte.TipoDeSubte;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +18,8 @@ public class ManagerDeSubtes {
 
     public ManagerDeSubtes(int vagones,
                            int cantidadDeEidan,
-                           int cantidadDeCAF) {
+                           int cantidadDeCAF,
+                           TipoDeSubte subteAComenzar) {
 
         this.subtes = new LinkedList<>();
 
@@ -28,8 +31,13 @@ public class ManagerDeSubtes {
                 .mapToObj(i -> new Eidan(vagones))
                 .collect(Collectors.toList());
 
-        this.subtes.addAll(cafs);
-        this.subtes.addAll(eidans);
+        if(subteAComenzar.equals(TipoDeSubte.CAF)) {
+            this.subtes.addAll(cafs);
+            this.subtes.addAll(eidans);
+        }else {
+            this.subtes.addAll(eidans);
+            this.subtes.addAll(cafs);
+        }
 
         this.posicionSubteActual = 0;
 
