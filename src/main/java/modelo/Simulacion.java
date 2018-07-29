@@ -5,9 +5,7 @@ public class Simulacion {
     private int cantidadDeVagones;
     private int cantidadDeEidan;
     private int cantidadDeCAF;
-    private int frecuenciaManana;
-    private int frecuenciaTarde;
-    private int frecuenciaNoche;
+    private Frecuencia frecuencia;
 
     public Simulacion(int cantidadDeVagones,
                       int cantidadDeEidan,
@@ -18,9 +16,7 @@ public class Simulacion {
         this.cantidadDeVagones = cantidadDeVagones;
         this.cantidadDeEidan = cantidadDeEidan;
         this.cantidadDeCAF = cantidadDeCAF;
-        this.frecuenciaManana = frecuenciaManana;
-        this.frecuenciaTarde = frecuenciaTarde;
-        this.frecuenciaNoche = frecuenciaNoche;
+        this.frecuencia = new Frecuencia(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
     }
 
     public Resultado simular() {
