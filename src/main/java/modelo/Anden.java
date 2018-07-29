@@ -16,6 +16,13 @@ public class Anden {
         return personasLlegadasDelSubte + personasLlegadasDeLaCalle;
     }
 
+    public int obtenerPersonasArrepentidas(int personasQueLlegan) {
+        int personasActualmenteEnAnden = this.getPersonasTotales();
+        int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
+        if(cantidadRestante >= personasQueLlegan) return 0;
+        else return personasQueLlegan - cantidadRestante;
+    }
+
     public boolean estasLleno() {
         return this.getPersonasTotales() == capacidadMaxima;
     }
@@ -41,8 +48,11 @@ public class Anden {
     }
 
     public void restarPersonasLlegadasDelSubte(int personas) {
-        if(this.personasLlegadasDelSubte > 0)
-        this.personasLlegadasDelSubte -= personas;
+        if(this.personasLlegadasDelSubte > 0) {
+            if(personasLlegadasDelSubte < personas)
+            this.personasLlegadasDelSubte = 0;
+            else this.personasLlegadasDelSubte -= personas;
+        }
     }
 
     public int getCapacidadMaxima() {
