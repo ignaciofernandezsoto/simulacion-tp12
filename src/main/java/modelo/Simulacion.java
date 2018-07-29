@@ -2,9 +2,7 @@ package modelo;
 
 public class Simulacion {
 
-    private int cantidadDeVagones;
-    private int cantidadDeEidan;
-    private int cantidadDeCAF;
+    private ManagerDeSubtes managerDeSubtes;
     private Frecuencia frecuencia;
 
     public Simulacion(int cantidadDeVagones,
@@ -13,10 +11,10 @@ public class Simulacion {
                       int frecuenciaManana,
                       int frecuenciaTarde,
                       int frecuenciaNoche) {
-        this.cantidadDeVagones = cantidadDeVagones;
-        this.cantidadDeEidan = cantidadDeEidan;
-        this.cantidadDeCAF = cantidadDeCAF;
+
+        this.managerDeSubtes = new ManagerDeSubtes(cantidadDeVagones, cantidadDeEidan, cantidadDeCAF);
         this.frecuencia = new Frecuencia(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
+
     }
 
     public Resultado simular() {
