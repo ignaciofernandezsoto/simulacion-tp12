@@ -5,7 +5,11 @@ import modelo.fdp.Mañana.CantPersonasLlegadasMañana;
 
 public class Mañana extends Turno {
 
-    public Mañana() {
-        super(new CantPersonasBajadasDelSubteMañana(), new CantPersonasLlegadasMañana());
+    public Mañana(int frecuencia) {
+        super(
+                new CantPersonasBajadasDelSubteMañana(),
+                new CantPersonasLlegadasMañana(),
+                frecuencia
+        );
     }
 }

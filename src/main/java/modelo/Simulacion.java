@@ -9,7 +9,6 @@ public class Simulacion {
 
     private final int avanceDelTiempo;
     private ManagerDeSubtes managerDeSubtes;
-    private Frecuencia frecuencia;
     private TurnoManager turnoManager;
     private Tiempo tiempo;
     private int tiempoDeLlegadaSubte;
@@ -23,13 +22,11 @@ public class Simulacion {
                       int frecuenciaManana,
                       int frecuenciaTarde,
                       int frecuenciaNoche,
-                      TipoDeSubte subteAComenzar,
-                      ) {
+                      TipoDeSubte subteAComenzar) {
 
         this.avanceDelTiempo = avanceDelTiempo;
         this.managerDeSubtes = new ManagerDeSubtes(cantidadDeVagones, cantidadDeEidan, cantidadDeCAF, subteAComenzar);
-        this.frecuencia = new Frecuencia(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
-        this.turnoManager = new TurnoManager();
+        this.turnoManager = new TurnoManager(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
         this.cantArrepentidos = 0;
         this.tiempo = new Tiempo();
 
@@ -39,9 +36,10 @@ public class Simulacion {
 
         Anden anden = new Anden(capacidadDelAnden);
         tiempo.avanzar(avanceDelTiempo);
-        this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + this.frecuencia.obtenerFrecuencia(this.tiempo.getMinutosActuales());
-
         Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
+
+        this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
+
         Subte subte = this.managerDeSubtes.getProximoSubte();
 
         while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {

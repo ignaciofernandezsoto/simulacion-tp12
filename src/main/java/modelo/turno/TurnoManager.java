@@ -11,10 +11,10 @@ public class TurnoManager {
     private Tarde turnoTarde;
     private Noche turnoNoche;
 
-    public TurnoManager() {
-        this.turnoMañana = new Mañana();
-        this.turnoTarde = new Tarde();
-        this.turnoNoche = new Noche();
+    public TurnoManager(int frecuenciaM, int frecuenciaT, int frecuenciaN) {
+        this.turnoMañana = new Mañana(frecuenciaM);
+        this.turnoTarde = new Tarde(frecuenciaT);
+        this.turnoNoche = new Noche(frecuenciaN);
     }
 
     public Turno obtenerTurno(int minutos) {
