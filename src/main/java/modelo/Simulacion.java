@@ -14,7 +14,7 @@ public class Simulacion {
     private int tiempoDeLlegadaSubte;
     private int cantArrepentidos;
     private int personasQueEntraronAlSistemaDesdeLaCalle;
-    private int promedioPersonasEnAndenPorMinuto;
+    private int personasEnAndenPorMinuto;
     private int sumatoriaLlegadasDeLaCalle;
     private int sumatoriaSalidasDeLaCalle;
 
@@ -33,7 +33,7 @@ public class Simulacion {
         this.cantArrepentidos = 0;
         this.tiempo = new Tiempo();
         this.personasQueEntraronAlSistemaDesdeLaCalle = 0;
-        this.promedioPersonasEnAndenPorMinuto = 0;
+        this.personasEnAndenPorMinuto = 0;
         this.sumatoriaLlegadasDeLaCalle = 0;
         this.sumatoriaSalidasDeLaCalle = 0;
 
@@ -58,7 +58,7 @@ public class Simulacion {
 
                 System.out.println("Entra gente de la calle!");
 
-                this.promedioPersonasEnAndenPorMinuto += anden.getPersonasTotales()/(tiempo.getMinutosActuales()*tiempo.getDiasActuales());
+                this.personasEnAndenPorMinuto += anden.getPersonasTotales();
                 turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
                 anden.restarPersonasLlegadasDelSubte();
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
@@ -75,8 +75,10 @@ public class Simulacion {
             }
 
             int personasQueQuierenBajarDelSubte = turno.cantPersonasQueBajanEnLacroze(subte.capacidadMaxima());
+            int personasQueSeQuedanEnElSubte = turno.cantPersonasQueSeQuedanEnElSubte(subte.capacidadMaxima());
 
-            if (!(subte.estasLleno(personasQueQuierenBajarDelSubte) && anden.estasLleno())) {
+            int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
+            if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {
                 int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
                 anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
                 anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
@@ -87,7 +89,7 @@ public class Simulacion {
 
         return new ConstructorDeResultado()
                 .construir(
-                        promedioPersonasEnAndenPorMinuto,
+                        personasEnAndenPorMinuto,
                         sumatoriaLlegadasDeLaCalle,
                         sumatoriaSalidasDeLaCalle,
                         personasQueEntraronAlSistemaDesdeLaCalle,

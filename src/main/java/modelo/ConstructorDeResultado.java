@@ -2,7 +2,7 @@ package modelo;
 
 public class ConstructorDeResultado {
 
-    public Resultado construir(int promedioPersonasEnAndenPorMinuti,
+    public Resultado construir(int personasEnAnden,
                                int sumatoriaLlegadas,
                                int sumatoriaSalidas,
                                int personasQueIngresaronAlSistema,
@@ -10,16 +10,18 @@ public class ConstructorDeResultado {
                                int minutosQueDuraElDia,
                                int diasQueDuroLaSimulacion) {
 
-        int promedioEsperaEnAnden =
+        float promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
+
+        float promedioEsperaEnAnden =
                 (sumatoriaSalidas - sumatoriaLlegadas) /
                         (minutosQueDuraElDia * diasQueDuroLaSimulacion);
 
-        int porcentajeDeArrepentidos =
+        float porcentajeDeArrepentidos =
                 arrepentidos * 100 /
                         personasQueIngresaronAlSistema;
 
         return new Resultado(
-                promedioPersonasEnAndenPorMinuti,
+                promedioPersonasEnAndenPorMinuto,
                 promedioEsperaEnAnden,
                 porcentajeDeArrepentidos
         );
