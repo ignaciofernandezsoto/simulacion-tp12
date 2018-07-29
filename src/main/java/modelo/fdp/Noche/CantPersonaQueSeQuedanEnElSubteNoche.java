@@ -1,17 +1,17 @@
-package modelo.fdp.Tarde;
+package modelo.fdp.Noche;
 
 import modelo.fdp.FDPIntervalos;
 
-public class CantPersonasLlegadasTarde extends FDPIntervalos {
+public class CantPersonaQueSeQuedanEnElSubteNoche extends FDPIntervalos {
 
     @Override
     public int valorInicial() {
-        return 420;
+        return 300;
     }
 
     @Override
     public int valorFinal() {
-        return 540;
+        return 420;
     }
 
 }

@@ -2,7 +2,7 @@ package modelo.fdp.Tarde;
 
 import modelo.fdp.FDPIntervalos;
 
-public class CantPersonasBajadasDelSubteTarde extends FDPIntervalos {
+public class CantPersonasQueBajanEnLacrozeTarde extends FDPIntervalos {
 
     @Override
     public int valorInicial() {

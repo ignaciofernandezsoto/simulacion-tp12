@@ -6,22 +6,35 @@ import static java.lang.Math.min;
 
 public abstract class Turno {
 
-    private FDPIntervalos cantPersonasBajadasDelSubte;
-    private FDPIntervalos cantPersonaLlegadas;
+    private FDPIntervalos cantPersonasQueBajanEnLacroze;
+    private FDPIntervalos cantPersonaQueSeQuedanEnElSubte;
+    private FDPIntervalos cantPersonasQueLleganDeLaCalle;
     private int frecuencia;
 
-    public Turno(FDPIntervalos cantPersonasBajadasDelSubte, FDPIntervalos cantPersonaLlegadas, int frecuencia) {
-        this.cantPersonasBajadasDelSubte = cantPersonasBajadasDelSubte;
-        this.cantPersonaLlegadas = cantPersonaLlegadas;
+    public Turno(FDPIntervalos cantPersonasQueBajanEnLacroze,
+                FDPIntervalos cantPersonaQueSeQuedanEnElSubte,
+                FDPIntervalos cantPersonasQueLleganDeLaCalle,
+                int frecuencia) {
+
+        this.cantPersonasQueBajanEnLacroze = cantPersonasQueBajanEnLacroze;
+        this.cantPersonaQueSeQuedanEnElSubte = cantPersonaQueSeQuedanEnElSubte;
+        this.cantPersonasQueLleganDeLaCalle = cantPersonasQueLleganDeLaCalle;
         this.frecuencia = frecuencia;
+
     }
 
-    public int obtenerCantPersonasBajadasSubte(int capacidadDelSubte) {
-        return min(this.cantPersonasBajadasDelSubte.obtenerValor(), capacidadDelSubte);
+    public int cantPersonasQueBajanEnLacroze(int capacidadDelSubte) {
+        return min(this.cantPersonasQueBajanEnLacroze.obtenerValor(), capacidadDelSubte);
     }
 
-    public int obtenerCantPersonasLlegadasAnden(int capacidadDelSubte) {
-        return min(this.cantPersonaLlegadas.obtenerValor(), capacidadDelSubte);
+    public int cantPersonasQueSeQuedanEnElSubte(int capacidadDelSubte) {
+        return min(this.cantPersonaQueSeQuedanEnElSubte.obtenerValor(), capacidadDelSubte);
+    }
+
+    public int cantPersonasQueLleganDeLaCalle() {
+
+        return this.cantPersonasQueLleganDeLaCalle.obtenerValor();
+
     }
 
     public int obtenerFrecuencia() {
