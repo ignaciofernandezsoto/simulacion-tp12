@@ -5,11 +5,13 @@ public class Anden {
     private int personasLlegadasDelSubte;
     private int personasLlegadasDeLaCalle;
     private int capacidadMaxima;
+    private int caudalSalida;
 
-    public Anden(int capacidadMaxima) {
+    public Anden(int capacidadMaxima, int caudalSalida) {
         this.personasLlegadasDelSubte = 0;
         this.personasLlegadasDeLaCalle = 0;
         this.capacidadMaxima = capacidadMaxima;
+        this.caudalSalida = caudalSalida;
     }
 
     public int getPersonasTotales() {
@@ -47,11 +49,11 @@ public class Anden {
         this.personasLlegadasDeLaCalle -= personas;
     }
 
-    public void restarPersonasLlegadasDelSubte(int personas) {
+    public void restarPersonasLlegadasDelSubte() {
         if(this.personasLlegadasDelSubte > 0) {
-            if(personasLlegadasDelSubte < personas)
+            if(personasLlegadasDelSubte < caudalSalida)
             this.personasLlegadasDelSubte = 0;
-            else this.personasLlegadasDelSubte -= personas;
+            else this.personasLlegadasDelSubte -= caudalSalida;
         }
     }
 

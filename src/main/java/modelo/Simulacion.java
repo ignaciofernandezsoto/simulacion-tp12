@@ -13,7 +13,6 @@ public class Simulacion {
     private Tiempo tiempo;
     private int tiempoDeLlegadaSubte;
     private int cantArrepentidos;
-    private int caudalDeSalida = 10;
     private int personasQueEntraronAlSistemaDesdeLaCalle;
 
     public Simulacion(int avanceDelTiempo,
@@ -34,9 +33,9 @@ public class Simulacion {
 
     }
 
-    public Resultado simular(int capacidadDelAnden) {
+    public Resultado simular(int capacidadDelAnden, int caudalSalida) {
 
-        Anden anden = new Anden(capacidadDelAnden);
+        Anden anden = new Anden(capacidadDelAnden, caudalSalida);
         tiempo.avanzar(avanceDelTiempo);
         Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
 
@@ -47,7 +46,7 @@ public class Simulacion {
         while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
 
             turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
-            anden.restarPersonasLlegadasDelSubte(caudalDeSalida);
+            anden.restarPersonasLlegadasDelSubte();
             int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
             this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
             cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
