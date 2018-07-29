@@ -42,8 +42,12 @@ public class Simulacion {
     public Resultado simular(int capacidadDelAnden) {
 
         Anden anden = new Anden(capacidadDelAnden);
+
         while(tiempo.getMinutosActuales() < tiempo.TIEMPO_FINAL_DIA_MINUTOS) {
-            tiempo.avanzar(avanceDelTiempo);
+
+            System.out.println("Son las " + tiempo.getMinutosActuales() + " minutos");
+
+            tiempo.avanzarMinutos(avanceDelTiempo);
             Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
 
             this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
@@ -51,6 +55,8 @@ public class Simulacion {
             Subte subte = this.managerDeSubtes.getProximoSubte();
 
             while (tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
+
+                System.out.println("Entra gente de la calle!");
 
                 this.sumatoriaPersonasPorMinuto += anden.getPersonasTotales();
                 turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
@@ -61,7 +67,7 @@ public class Simulacion {
                 cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
                 anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas - cantArrepentidos);
 
-                tiempo.avanzar(avanceDelTiempo);
+                tiempo.avanzarMinutos(avanceDelTiempo);
             }
 
             int personasQueQuierenBajarDelSubte = turno.cantPersonasQueBajanEnLacroze(subte.capacidadMaxima());
@@ -72,6 +78,7 @@ public class Simulacion {
                 anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
                 this.sumatoriaSalidasDeLaCalle = tiempo.getMinutosActuales() * pasajerosSubidos;
             }
+
         }
 
         return new ConstructorDeResultado()

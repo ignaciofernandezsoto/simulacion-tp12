@@ -11,22 +11,18 @@ public class Tiempo {
 
     public Tiempo() {
         this.tiempoMinutos = TIEMPO_INICIAL_DIA_MINUTOS;
-        this.tiempoDias = 0;
+        this.tiempoDias = 1;
     }
 
-    public void avanzar(int minutos) {
+    public void avanzarMinutos(int minutos) {
 
         this.tiempoMinutos += minutos;
 
-        if(this.tiempoMinutos >= TIEMPO_FINAL_DIA_MINUTOS) {
-            // vaciamiento?
-            this.tiempoMinutos = TIEMPO_INICIAL_DIA_MINUTOS;
-            this.tiempoDias += 1;
-        }
+    }
 
-        if(this.tiempoDias >= TIEMPO_FINAL_DIAS) {
-            // vaciamiento?
-        }
+    public void avanzarUnDia() {
+
+        this.tiempoDias++;
 
     }
 
