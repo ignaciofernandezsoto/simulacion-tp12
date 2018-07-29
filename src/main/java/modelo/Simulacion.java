@@ -4,6 +4,7 @@ public class Simulacion {
 
     private ManagerDeSubtes managerDeSubtes;
     private Frecuencia frecuencia;
+    private Tiempo tiempo;
 
     public Simulacion(int cantidadDeVagones,
                       int cantidadDeEidan,
@@ -14,6 +15,7 @@ public class Simulacion {
 
         this.managerDeSubtes = new ManagerDeSubtes(cantidadDeVagones, cantidadDeEidan, cantidadDeCAF);
         this.frecuencia = new Frecuencia(frecuenciaManana, frecuenciaTarde, frecuenciaNoche);
+        this.tiempo = new Tiempo();
 
     }
 
