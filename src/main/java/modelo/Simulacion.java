@@ -36,14 +36,14 @@ public class Simulacion {
 
         Anden anden = new Anden(capacidadDelAnden);
         tiempo.avanzar(avanceDelTiempo);
-        Turno turno = null;
+        Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
 
         this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
 
         Subte subte = this.managerDeSubtes.getProximoSubte();
 
         while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
-            
+
             turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
             anden.restarPersonasLlegadasDelSubte(caudalDeSalida);
             int personasLlegadas = turno.obtenerCantPersonasLlegadasAnden(subte.capacidadMaxima());
