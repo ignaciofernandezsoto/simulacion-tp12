@@ -64,9 +64,6 @@ public class Simulacion {
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
 
-                if(anden.obtenerPersonasArrepentidas(personasLlegadas) > personasLlegadas)
-                    System.out.println("rip");
-
                 cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
 
                 int personasQueEntraronAlAnden = personasLlegadas - cantArrepentidos;
