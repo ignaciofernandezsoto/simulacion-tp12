@@ -5,13 +5,12 @@ public class Anden {
     private int personasLlegadasDelSubte;
     private int personasLlegadasDeLaCalle;
     private int capacidadMaxima;
-    private int caudalSalida;
+    private final int caudalSalida = 30;
 
-    public Anden(int capacidadMaxima, int caudalSalida) {
+    public Anden(int capacidadMaxima) {
         this.personasLlegadasDelSubte = 0;
         this.personasLlegadasDeLaCalle = 0;
         this.capacidadMaxima = capacidadMaxima;
-        this.caudalSalida = caudalSalida;
     }
 
     public int getPersonasTotales() {

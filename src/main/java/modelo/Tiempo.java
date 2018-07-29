@@ -4,7 +4,7 @@ public class Tiempo {
 
     private static final int TIEMPO_FINAL_DIAS = 365;
     private static final int TIEMPO_INICIAL_DIA_MINUTOS = 300;
-    private static final int TIEMPO_FINAL_DIA_MINUTOS = 1320;
+    public final int TIEMPO_FINAL_DIA_MINUTOS = 1320;
 
     private int tiempoDias;
     private int tiempoMinutos;

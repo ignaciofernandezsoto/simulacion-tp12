@@ -39,37 +39,39 @@ public class Simulacion {
 
     }
 
-    public Resultado simular(int capacidadDelAnden, int caudalSalida) {
+    public Resultado simular(int capacidadDelAnden) {
 
-        Anden anden = new Anden(capacidadDelAnden, caudalSalida);
-        tiempo.avanzar(avanceDelTiempo);
-        Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
-
-        this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
-
-        Subte subte = this.managerDeSubtes.getProximoSubte();
-
-        while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
-
-            this.sumatoriaPersonasPorMinuto += anden.getPersonasTotales();
-            turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
-            anden.restarPersonasLlegadasDelSubte();
-            int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
-            this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasLlegadas;
-            this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
-            cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
-            anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas-cantArrepentidos);
-
+        Anden anden = new Anden(capacidadDelAnden);
+        while(tiempo.getMinutosActuales() < tiempo.TIEMPO_FINAL_DIA_MINUTOS) {
             tiempo.avanzar(avanceDelTiempo);
-        }
+            Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
 
-        int personasQueQuierenBajarDelSubte = turno.cantPersonasQueBajanEnLacroze(subte.capacidadMaxima());
+            this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
 
-        if(!(subte.estasLleno(personasQueQuierenBajarDelSubte) && anden.estasLleno())) {
-           int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
-           anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
-           anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
-           this.sumatoriaSalidasDeLaCalle = tiempo.getMinutosActuales() * pasajerosSubidos;
+            Subte subte = this.managerDeSubtes.getProximoSubte();
+
+            while (tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
+
+                this.sumatoriaPersonasPorMinuto += anden.getPersonasTotales();
+                turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
+                anden.restarPersonasLlegadasDelSubte();
+                int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
+                this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasLlegadas;
+                this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
+                cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
+                anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas - cantArrepentidos);
+
+                tiempo.avanzar(avanceDelTiempo);
+            }
+
+            int personasQueQuierenBajarDelSubte = turno.cantPersonasQueBajanEnLacroze(subte.capacidadMaxima());
+
+            if (!(subte.estasLleno(personasQueQuierenBajarDelSubte) && anden.estasLleno())) {
+                int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
+                anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
+                anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
+                this.sumatoriaSalidasDeLaCalle = tiempo.getMinutosActuales() * pasajerosSubidos;
+            }
         }
 
         return new ConstructorDeResultado()
