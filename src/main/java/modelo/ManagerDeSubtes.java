@@ -23,11 +23,11 @@ public class ManagerDeSubtes {
 
         this.subtes = new LinkedList<>();
 
-        List<Subte> cafs = IntStream.range(1, cantidadDeCAF)
+        List<Subte> cafs = IntStream.range(0, cantidadDeCAF)
                 .mapToObj(i -> new CAF(vagones))
                 .collect(Collectors.toList());
 
-        List<Subte> eidans = IntStream.range(1, cantidadDeEidan)
+        List<Subte> eidans = IntStream.range(0, cantidadDeEidan)
                 .mapToObj(i -> new Eidan(vagones))
                 .collect(Collectors.toList());
 

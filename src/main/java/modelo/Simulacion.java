@@ -59,13 +59,19 @@ public class Simulacion {
                 System.out.println("Entra gente de la calle!");
 
                 this.sumatoriaPersonasPorMinuto += anden.getPersonasTotales();
+
                 turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
                 anden.restarPersonasLlegadasDelSubte();
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
-                this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasLlegadas;
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
                 cantArrepentidos += anden.obtenerPersonasArrepentidas(personasLlegadas);
-                anden.agregarPersonasLlegadasDeLaCalle(personasLlegadas - cantArrepentidos);
+
+                int personasQueEntraronAlAnden = personasLlegadas - cantArrepentidos;
+
+                this.sumatoriaLlegadasDeLaCalle = tiempo.getMinutosActuales() * personasQueEntraronAlAnden;
+                if(personasQueEntraronAlAnden < 0)
+                    System.out.println("rip");
+                anden.agregarPersonasLlegadasDeLaCalle(personasQueEntraronAlAnden);
 
                 tiempo.avanzarMinutos(avanceDelTiempo);
             }

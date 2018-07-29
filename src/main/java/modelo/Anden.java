@@ -5,7 +5,7 @@ public class Anden {
     private int personasLlegadasDelSubte;
     private int personasLlegadasDeLaCalle;
     private int capacidadMaxima;
-    private final int caudalSalida = 30;
+    private final int caudalSalida = 150;
 
     public Anden(int capacidadMaxima) {
         this.personasLlegadasDelSubte = 0;
