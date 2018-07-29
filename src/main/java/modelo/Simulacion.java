@@ -36,14 +36,14 @@ public class Simulacion {
 
         Anden anden = new Anden(capacidadDelAnden);
         tiempo.avanzar(avanceDelTiempo);
-        Turno turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
+        Turno turno = null;
 
         this.tiempoDeLlegadaSubte = tiempo.getMinutosActuales() + turno.obtenerFrecuencia();
 
         Subte subte = this.managerDeSubtes.getProximoSubte();
 
         while(tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
-            anden.restarPersonasLlegadasDelSubte(caudalDeSalida);
+            turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
             int personasLlegadas = turno.obtenerCantPersonasLlegadasAnden();
             int personasSupuestasEnAnden = anden.getPersonasTotales() + personasLlegadas;
             if(personasSupuestasEnAnden > anden.getCapacidadMaxima()) cantArrepentidos += personasLlegadas;
@@ -53,8 +53,7 @@ public class Simulacion {
         }
         int personasBajadasDelSubte = turno.obtenerCantPersonasBajadasSubte();
         if(!(subte.estasLleno(personasBajadasDelSubte) && anden.estasLleno())) {
-            subte.restarPasajeros(personasBajadasDelSubte);
-           int pasajerosSubidos = subte.agregarPasajeros(anden.getPersonasLlegadasDeLaCalle());
+           int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
            anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
            anden.agregarPersonasLlegadasDelSubte(personasBajadasDelSubte);
         }

@@ -33,19 +33,14 @@ public abstract class Subte {
         return vagones*capacidadPorVagon;
     }
 
-    public int agregarPasajeros(int pasajerosSubiendo){
+    public int pasajerosQuePuedenViajar(int pasajerosSubiendo){
         if(this.cantidadDePasajeros + pasajerosSubiendo <= this.capacidadMaxima()) {
-            this.cantidadDePasajeros += pasajerosSubiendo;
             return pasajerosSubiendo;
         }
         else {
             int pasajerosQuePuedenSubir = this.capacidadMaxima() - this.cantidadDePasajeros;
-            this.cantidadDePasajeros += pasajerosQuePuedenSubir;
             return pasajerosQuePuedenSubir;
         }
     }
 
-    public void restarPasajeros(int pasajerosBajando) {
-        this.cantidadDePasajeros -= pasajerosBajando;
-    }
 }
