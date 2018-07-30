@@ -64,7 +64,7 @@ public class Simulacion {
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
 
-                int arrepentidosActuales = anden.obtenerPersonasArrepentidas(personasLlegadas);
+                int arrepentidosActuales = 0;
 
                 cantArrepentidos += arrepentidosActuales;
 
@@ -99,6 +99,7 @@ public class Simulacion {
         while(anden.estasConGente()) {
             int personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
             this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
+            this.tiempo.avanzarMinutos(avanceDelTiempo);
         }
 
         return new ConstructorDeResultado()

@@ -1,5 +1,6 @@
 package modelo;
 
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Anden {
@@ -106,7 +107,7 @@ public class Anden {
                 this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
 
                 int pasajerosQueLograronSubir = min(
-                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
+                        espacioLibreSubteConLosQueBajan + pasajerosQueQuierenBajar,
                         pasajerosQueQuierenSubir
                 );
 
@@ -118,7 +119,8 @@ public class Anden {
                 int pasajerosQueQuedanPorSubir = pasajerosQueQuierenSubir;
                 int pasajerosQueQuedanPorBajar = pasajerosQueQuierenBajar;
 
-                while(pasajerosQueQuedanPorSubir > 0 && pasajerosQueQuedanPorBajar > 0) {
+                while(pasajerosQueQuedanPorSubir > 0
+                        && pasajerosQueQuedanPorBajar > 0) {
 
                     pasajerosQueQuedanPorSubir--;
                     this.personasLlegadasDeLaCalle--;
@@ -133,10 +135,9 @@ public class Anden {
 
                     if(pasajerosQueQuedanPorSubir > 0) {
 
-                        int pasajerosQueLograronSubir = (pasajerosQueQuierenSubir - pasajerosQueQuedanPorSubir)
-                                + min(
-                                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
-                                        pasajerosQueQuedanPorSubir
+                        int pasajerosQueLograronSubir = min(
+                                        pasajerosQueQuierenSubir - pasajerosQueQuedanPorSubir,
+                                        espacioLibreSubteConLosQueBajan + pasajerosQueQuedanPorBajar
                         );
 
                         this.personasLlegadasDeLaCalle -= pasajerosQueLograronSubir;

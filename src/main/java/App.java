@@ -6,7 +6,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        int vagones = 6;
+        int vagones = 1;
         int eidans = 1;
         int CAFs = 2;
         int frecuenciaManana = 3;
