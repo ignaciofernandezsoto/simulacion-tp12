@@ -10,14 +10,14 @@ public class ConstructorDeResultado {
                                int minutosQueDuraElDia,
                                int diasQueDuroLaSimulacion) {
 
-        float promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
+        int promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
 
         float promedioEsperaEnAnden =
-                (sumatoriaSalidas - sumatoriaLlegadas) /
+                (float) (sumatoriaSalidas - sumatoriaLlegadas) /
                         (minutosQueDuraElDia * diasQueDuroLaSimulacion);
 
         float porcentajeDeArrepentidos =
-                arrepentidos * 100 /
+                (float) arrepentidos * 100 /
                         personasQueIngresaronAlSistema;
 
         return new Resultado(

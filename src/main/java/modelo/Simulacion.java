@@ -76,8 +76,10 @@ public class Simulacion {
                 tiempo.avanzarMinutos(avanceDelTiempo);
             }
 
-            int personasQueQuierenBajarDelSubte = turno.cantPersonasQueBajanEnLacroze(subte.capacidadMaxima());
-            int personasQueSeQuedanEnElSubte = turno.cantPersonasQueSeQuedanEnElSubte(subte.capacidadMaxima());
+            Turno.PersonasDelSubte personasDelSubte = turno.getPersonasDelSubte(subte.capacidadMaxima());
+
+            int personasQueQuierenBajarDelSubte = personasDelSubte.getCantPersonasQueBajanEnLacroze();
+            int personasQueSeQuedanEnElSubte = personasDelSubte.getCantPersonasQueSeQuedanEnElSubte();
 
             int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
             if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {

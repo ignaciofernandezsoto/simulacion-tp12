@@ -2,11 +2,11 @@ package modelo;
 
 public class Resultado {
 
-    private final float promedioPersonasEnAnden;
+    private final int promedioPersonasEnAnden;
     private final float promedioDeEsperaEnAnden;
     private final float porcentajeDeArrepentidos;
 
-    public Resultado(float promedioPersonasEnAnden,
+    public Resultado(int promedioPersonasEnAnden,
                      float promedioDeEsperaEnAnden,
                      float porcentajeDeArrepentidos) {
 

@@ -2,16 +2,16 @@ package modelo.fdp.Mañana;
 
 import modelo.fdp.FDPIntervalos;
 
-public class CantPersonaQueSeQuedanEnElSubteMañana extends FDPIntervalos {
+public class CantPersonasQueViajanEnElSubteMañana extends FDPIntervalos {
 
     @Override
     public int valorInicial() {
-        return 540;
+        return 600;
     }
 
     @Override
     public int valorFinal() {
-        return 660;
+        return 750;
     }
 
 }

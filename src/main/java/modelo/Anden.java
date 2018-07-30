@@ -4,7 +4,7 @@ public class Anden {
 
     private int personasLlegadasDelSubte;
     private int personasLlegadasDeLaCalle;
-    private static final int capacidadMaxima =  100;
+    private static final int capacidadMaxima = 358;
     private final int caudalSalida = 150;
 
     public Anden() {
