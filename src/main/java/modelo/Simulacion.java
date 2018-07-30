@@ -64,7 +64,7 @@ public class Simulacion {
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
 
-                int arrepentidosActuales = 0;
+                int arrepentidosActuales = anden.obtenerPersonasArrepentidas(personasLlegadas);;
 
                 cantArrepentidos += arrepentidosActuales;
 
