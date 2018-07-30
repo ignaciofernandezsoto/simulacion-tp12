@@ -75,20 +75,25 @@ public class Simulacion {
 
                 tiempo.avanzarMinutos(avanceDelTiempo);
             }
+            if(tiempoDeLlegadaSubte < tiempo.TIEMPO_FINAL_DIA_MINUTOS) {
+                turno = this.turnoManager.obtenerTurno(this.tiempo.getMinutosActuales());
+                Turno.PersonasDelSubte personasDelSubte = turno.getPersonasDelSubte(subte.capacidadMaxima());
 
-            Turno.PersonasDelSubte personasDelSubte = turno.getPersonasDelSubte(subte.capacidadMaxima());
+                int personasQueQuierenBajarDelSubte = personasDelSubte.getCantPersonasQueBajanEnLacroze();
+                int personasQueSeQuedanEnElSubte = personasDelSubte.getCantPersonasQueSeQuedanEnElSubte();
 
-            int personasQueQuierenBajarDelSubte = personasDelSubte.getCantPersonasQueBajanEnLacroze();
-            int personasQueSeQuedanEnElSubte = personasDelSubte.getCantPersonasQueSeQuedanEnElSubte();
-
-            int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
-            if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {
-                int pasajerosSubidos = anden
-                        .realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
-                                personasQueQuierenBajarDelSubte,
-                                subte.capacidadMaxima() - personasTotalesEnElSubte);
-                this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
+                int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
+                if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {
+                    int pasajerosSubidos = anden
+                            .realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
+                                    personasQueQuierenBajarDelSubte,
+                                    subte.capacidadMaxima() - personasTotalesEnElSubte
+                            );
+                    this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
+                }
             }
+            else
+                break; // sale del while para generar vaciamiento
 
         }
         while(anden.estasConGente()) {
