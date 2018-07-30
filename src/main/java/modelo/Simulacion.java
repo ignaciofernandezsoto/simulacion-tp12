@@ -54,7 +54,7 @@ public class Simulacion {
 
             Subte subte = this.managerDeSubtes.getProximoSubte();
 
-            while (tiempo.getMinutosActuales() < tiempoDeLlegadaSubte) {
+            while (tiempo.getMinutosActuales() < tiempoDeLlegadaSubte && tiempoDeLlegadaSubte < tiempo.TIEMPO_FINAL_DIA_MINUTOS) {
 
                 System.out.println("Entra gente de la calle!");
 

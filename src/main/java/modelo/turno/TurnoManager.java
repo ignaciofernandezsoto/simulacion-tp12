@@ -18,13 +18,13 @@ public class TurnoManager {
     }
 
     public Turno obtenerTurno(int minutos) {
-        if(minutos >= INICIO_MANANA && minutos < INICIO_TARDE)
+        if(minutos >= INICIO_MANANA && minutos <= INICIO_TARDE)
             return this.turnoMañana;
 
-        if(minutos >= INICIO_TARDE && minutos <= INICIO_NOCHE)
+        if(minutos > INICIO_TARDE && minutos <= INICIO_NOCHE)
             return this.turnoTarde;
 
-        if(minutos >= INICIO_NOCHE && minutos < FIN_NOCHE)
+        if(minutos > INICIO_NOCHE && minutos <= FIN_NOCHE)
             return this.turnoNoche;
 
         throw new RuntimeException("No pueden llegar minutos superiores a las 22pm!");
