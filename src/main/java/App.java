@@ -9,10 +9,9 @@ public class App {
         int vagones = 6;
         int eidans = 1;
         int CAFs = 2;
-        int frecuenciaManana = 3;
-        int frecuenciaTarde = 4;
-        int frecuenciaNoche = 3;
-        int capacidadDeAnden = 100;
+        int frecuenciaManana = 10;
+        int frecuenciaTarde = 10;
+        int frecuenciaNoche = 10;
         final int avanceDelTiempo = 1;
         TipoDeSubte subteAComenzar = TipoDeSubte.CAF;
 
@@ -27,7 +26,7 @@ public class App {
                 subteAComenzar
         );
 
-        Resultado resultado = simulacion.simular(capacidadDeAnden);
+        Resultado resultado = simulacion.simular();
 
         System.out.println("Vagones: " + vagones);
         System.out.println("Trenes Mitsubishi Eidan 500: " + eidans);

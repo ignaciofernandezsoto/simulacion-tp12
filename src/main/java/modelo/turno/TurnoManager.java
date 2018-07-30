@@ -29,4 +29,8 @@ public class TurnoManager {
 
         throw new RuntimeException("No pueden llegar minutos superiores a las 22pm!");
     }
+
+    public Noche getNoche() {
+        return this.turnoNoche;
+    }
 }

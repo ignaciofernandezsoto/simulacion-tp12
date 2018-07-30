@@ -39,9 +39,9 @@ public class Simulacion {
 
     }
 
-    public Resultado simular(int capacidadDelAnden) {
+    public Resultado simular() {
 
-        Anden anden = new Anden(capacidadDelAnden);
+        Anden anden = new Anden();
 
         while(tiempo.getMinutosActuales() < tiempo.TIEMPO_FINAL_DIA_MINUTOS) {
 
@@ -82,9 +82,13 @@ public class Simulacion {
                 int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
                 anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
                 anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
-                this.sumatoriaSalidasDeLaCalle = tiempo.getMinutosActuales() * pasajerosSubidos;
+                this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
             }
 
+        }
+        while(anden.estasConGente()) {
+            int personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
+            this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
         }
 
         return new ConstructorDeResultado()
