@@ -1,5 +1,7 @@
 package modelo;
 
+import static java.lang.Math.min;
+
 public class Anden {
 
     private int personasLlegadasDelSubte;
@@ -39,7 +41,7 @@ public class Anden {
         int personasActualmenteEnAnden = this.getPersonasTotales();
         int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
 
-        this.personasLlegadasDelSubte += Math.min(cantidadRestante, personasLlegadasDelSubte);
+        this.personasLlegadasDelSubte += min(cantidadRestante, personasLlegadasDelSubte);
 
     }
 
@@ -51,11 +53,7 @@ public class Anden {
         int personasActualmenteEnAnden = this.getPersonasTotales();
         int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
 
-        this.personasLlegadasDeLaCalle += Math.min(cantidadRestante, personasLlegadasDeLaCalle);
-    }
-
-    public void restarPersonasLlegadasDeLaCalle(int personas) {
-        this.personasLlegadasDeLaCalle -= personas;
+        this.personasLlegadasDeLaCalle += min(cantidadRestante, personasLlegadasDeLaCalle);
     }
 
     public void restarPersonasLlegadasDelSubte() {
@@ -87,4 +85,89 @@ public class Anden {
     public int getCapacidadMaxima() {
         return capacidadMaxima;
     }
+
+    public int realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
+            int personasQueQuierenBajarDelSubte,
+            int espacioLibreSubteConLosQueBajan) {
+
+        int pasajerosQueQuierenSubir = this.personasLlegadasDeLaCalle;
+        int pasajerosQueQuierenBajar = personasQueQuierenBajarDelSubte;
+
+        if(pasajerosQueQuierenSubir <= espacioLibreSubteConLosQueBajan) {
+
+            this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
+            this.personasLlegadasDeLaCalle -= pasajerosQueQuierenSubir;
+            return pasajerosQueQuierenSubir;
+
+        } else {
+
+            if(pasajerosQueQuierenBajar <= this.espacioLibre()) {
+
+                this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
+
+                int pasajerosQueLograronSubir = min(
+                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
+                        pasajerosQueQuierenSubir
+                );
+
+                this.personasLlegadasDeLaCalle -= pasajerosQueLograronSubir;
+                return pasajerosQueLograronSubir;
+
+            } else {
+
+                int pasajerosQueQuedanPorSubir = pasajerosQueQuierenSubir;
+                int pasajerosQueQuedanPorBajar = pasajerosQueQuierenBajar;
+
+                while(pasajerosQueQuedanPorSubir > 0 && pasajerosQueQuedanPorBajar > 0) {
+
+                    pasajerosQueQuedanPorSubir--;
+                    this.personasLlegadasDeLaCalle--;
+                    pasajerosQueQuedanPorBajar--;
+                    this.personasLlegadasDelSubte++;
+
+                }
+
+                if(pasajerosQueQuedanPorSubir == 0 && pasajerosQueQuedanPorBajar == 0)
+                    return pasajerosQueQuierenSubir;
+                else {
+
+                    if(pasajerosQueQuedanPorSubir > 0) {
+
+                        int pasajerosQueLograronSubir = (pasajerosQueQuierenSubir - pasajerosQueQuedanPorSubir)
+                                + min(
+                                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
+                                        pasajerosQueQuedanPorSubir
+                        );
+
+                        this.personasLlegadasDeLaCalle -= pasajerosQueLograronSubir;
+
+                        return pasajerosQueLograronSubir;
+
+                    } else {
+
+                        int pasajerosQueLograronBajar = (pasajerosQueQuierenBajar - pasajerosQueQuedanPorBajar)
+                                + min(
+                                        this.espacioLibre(),
+                                        pasajerosQueQuedanPorBajar
+                        );
+
+                        this.personasLlegadasDelSubte += pasajerosQueLograronBajar;
+
+                        return pasajerosQueQuierenSubir;
+
+                    }
+
+                }
+            }
+
+        }
+
+    }
+
+    private int espacioLibre() {
+
+        return this.getCapacidadMaxima() - this.getPersonasTotales();
+
+    }
+
 }

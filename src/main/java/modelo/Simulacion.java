@@ -83,9 +83,10 @@ public class Simulacion {
 
             int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
             if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {
-                int pasajerosSubidos = subte.pasajerosQuePuedenViajar(anden.getPersonasLlegadasDeLaCalle());
-                anden.restarPersonasLlegadasDeLaCalle(pasajerosSubidos);
-                anden.agregarPersonasLlegadasDelSubte(personasQueQuierenBajarDelSubte);
+                int pasajerosSubidos = anden
+                        .realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
+                                personasQueQuierenBajarDelSubte,
+                                subte.capacidadMaxima() - personasTotalesEnElSubte);
                 this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
             }
 
