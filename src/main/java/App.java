@@ -8,9 +8,9 @@ public class App {
         int vagones = 6;
         int eidans = 1;
         int CAFs = 2;
-        int frecuenciaManana = 6;
-        int frecuenciaTarde = 6;
-        int frecuenciaNoche = 15;
+        int frecuenciaManana = 10;
+        int frecuenciaTarde = 10;
+        int frecuenciaNoche = 3;
         final int avanceDelTiempo = 1;
         TipoDeSubte subteAComenzar = TipoDeSubte.CAF;
 

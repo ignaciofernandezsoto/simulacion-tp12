@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Anden {
@@ -103,8 +102,12 @@ public class Anden {
 
             this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
 
+            List<Persona> pasajerosSubidos = new ArrayList<>();
+            for(int i=0; i < personasLlegadasDeLaCalle.size(); i++){
+                pasajerosSubidos.add(this.personasLlegadasDeLaCalle.remove(i));
+            }
             this.personasLlegadasDeLaCalle = new ArrayList<>();
-            return pasajerosQueQuierenSubir;
+            return pasajerosSubidos;
 
         } else {
 
@@ -113,7 +116,7 @@ public class Anden {
                 this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
 
                 int pasajerosQueLograronSubir = min(
-                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
+                        espacioLibreSubteConLosQueBajan + pasajerosQueQuierenBajar,
                         pasajerosQueQuierenSubir.size()
                 );
 
@@ -147,7 +150,7 @@ public class Anden {
 
                         int pasajerosQueLograronSubir = min(
                                         pasajerosQueQuierenSubir.size() - pasajerosQueQuedanPorSubir,
-                                        espacioLibreSubteConLosQueBajan - pasajerosQueQuedanPorBajar
+                                        espacioLibreSubteConLosQueBajan + pasajerosQueQuedanPorBajar
                         );
                         List<Persona> personasSubidas = new ArrayList<>();
 
