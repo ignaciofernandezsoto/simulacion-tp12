@@ -73,7 +73,7 @@ public class Simulacion {
                     frecuenciaDeSubte *= 1.2;
                 } else {
                     int probabilidadAveriaSubte = this.averiaDeSubte.obtenerValor();
-                    if (probabilidadAveriaSubte < 0.1) {
+                    if (probabilidadAveriaSubte < 0.05) {
                         System.out.println("Se rompió el subte. La frecuencia pasa a ser menos");
                         this.tiempoDeReparacion.setValorInicial(tiempo.getMinutosActuales());
                         this.tiempoDeReparacion.setDiaQueInicio(tiempo.getDiasActuales());
@@ -133,14 +133,14 @@ public class Simulacion {
                     break; // sale del while para generar vaciamiento
 
             }
+            while(anden.estasConGente()) {
+                List<Persona> personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
+                personasDeLaCalleQueSalieron.forEach(personas -> personas.setTiempoDeSalida(tiempo.getMinutosActuales()));
+                this.pasajerosSalidosCalle.addAll(personasDeLaCalleQueSalieron);
+                this.tiempo.avanzarMinutos(avanceDelTiempo);
+            }
             tiempo.avanzarUnDia();
     }
-        while(anden.estasConGente()) {
-            List<Persona> personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
-            personasDeLaCalleQueSalieron.forEach(personas -> personas.setTiempoDeSalida(tiempo.getMinutosActuales()));
-            this.pasajerosSalidosCalle.addAll(personasDeLaCalleQueSalieron);
-            this.tiempo.avanzarMinutos(avanceDelTiempo);
-        }
 
         return new ConstructorDeResultado()
                 .construir(

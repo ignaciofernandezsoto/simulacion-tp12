@@ -79,7 +79,7 @@ public class Anden {
                 else {
                     List<Persona> personasQueSalen = new ArrayList<>();
                     IntStream.range(0, caudalSalida).forEach(i -> {
-                        Persona persona = this.personasLlegadasDeLaCalle.remove(i);
+                        Persona persona = this.personasLlegadasDeLaCalle.remove(0);
                         personasQueSalen.add(persona);
                     });
                     return personasQueSalen;
@@ -122,8 +122,7 @@ public class Anden {
 
                 List<Persona> pasajerosSubidos = new ArrayList<>();
                 IntStream.range(0, pasajerosQueLograronSubir).forEach(i -> {
-                    Persona persona = this.personasLlegadasDeLaCalle.remove(i);
-                    pasajerosSubidos.add(persona);
+                    pasajerosSubidos.add(this.personasLlegadasDeLaCalle.remove(0));
                 });
                 return pasajerosSubidos;
 
@@ -155,7 +154,7 @@ public class Anden {
                         List<Persona> personasSubidas = new ArrayList<>();
 
                         IntStream.range(0,pasajerosQueLograronSubir).forEach(i -> {
-                            personasSubidas.add(this.personasLlegadasDeLaCalle.remove(i));
+                            personasSubidas.add(this.personasLlegadasDeLaCalle.remove(0));
                         }
                         );
                         return personasSubidas;
