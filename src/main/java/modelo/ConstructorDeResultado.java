@@ -13,7 +13,7 @@ public class ConstructorDeResultado {
 
         int promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
 
-        int total = pasajerosSalidos.stream().mapToInt(Persona::getTiempoEnSistema).sum();
+        float total = pasajerosSalidos.stream().mapToInt(Persona::getTiempoEnSistema).sum();
         float promedioEsperaEnAnden = total / pasajerosSalidos.size();
 
         float porcentajeDeArrepentidos =

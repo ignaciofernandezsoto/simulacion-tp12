@@ -5,12 +5,11 @@ import modelo.subte.TipoDeSubte;
 public class App {
 
     public static void main(String[] args) {
-
         int vagones = 6;
         int eidans = 1;
         int CAFs = 2;
-        int frecuenciaManana = 5;
-        int frecuenciaTarde = 7;
+        int frecuenciaManana = 15;
+        int frecuenciaTarde = 20;
         int frecuenciaNoche = 10;
         final int avanceDelTiempo = 1;
         TipoDeSubte subteAComenzar = TipoDeSubte.CAF;

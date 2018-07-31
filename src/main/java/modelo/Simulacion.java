@@ -7,6 +7,7 @@ import modelo.turno.TurnoManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Simulacion {
 
@@ -76,11 +77,8 @@ public class Simulacion {
                 int personasQueEntraronAlAnden = personasLlegadas - arrepentidosActuales;
 
                 List<Persona> personasDeLaCalleAlAnden = new ArrayList<>();
-                for (int i = 0; i < personasQueEntraronAlAnden; i++) {
-                    personasDeLaCalleAlAnden.add(new Persona(tiempo.getMinutosActuales()));
-                }
-
-                //this.sumatoriaLlegadasDeLaCalle += tiempo.getMinutosActuales() * personasQueEntraronAlAnden;
+                IntStream.range(0, personasQueEntraronAlAnden).forEach(i -> personasDeLaCalleAlAnden.add(
+                        new Persona(tiempo.getMinutosActuales())));
                 anden.agregarPersonasLlegadasDeLaCalle(personasDeLaCalleAlAnden);
 
                 tiempo.avanzarMinutos(avanceDelTiempo);

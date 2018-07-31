@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -78,10 +79,10 @@ public class Anden {
                 }
                 else {
                     List<Persona> personasQueSalen = new ArrayList<>();
-                    for(int i=0; i < caudalSalida; i++) {
+                    IntStream.range(0, caudalSalida).forEach(i -> {
                         Persona persona = this.personasLlegadasDeLaCalle.remove(i);
                         personasQueSalen.add(persona);
-                    }
+                    });
                     return personasQueSalen;
                 }
             }
@@ -117,10 +118,10 @@ public class Anden {
                 );
 
                 List<Persona> pasajerosSubidos = new ArrayList<>();
-                for(int i=0; i < pasajerosQueLograronSubir; i++) {
+                IntStream.range(0, pasajerosQueLograronSubir).forEach(i -> {
                     Persona persona = this.personasLlegadasDeLaCalle.remove(i);
                     pasajerosSubidos.add(persona);
-                }
+                });
                 return pasajerosSubidos;
 
             } else {
@@ -149,10 +150,11 @@ public class Anden {
                                         espacioLibreSubteConLosQueBajan - pasajerosQueQuedanPorBajar
                         );
                         List<Persona> personasSubidas = new ArrayList<>();
-                        for(int i=0; i < pasajerosQueLograronSubir; i++) {
+
+                        IntStream.range(0,pasajerosQueLograronSubir).forEach(i -> {
                             Persona persona = this.personasLlegadasDeLaCalle.remove(i);
                             personasSubidas.add(persona);
-                        }
+                        });
                         return personasSubidas;
 
                     } else {
