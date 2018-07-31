@@ -16,6 +16,18 @@ public class Resultado {
 
     }
 
+    public int getPromedioPersonasEnAnden() {
+        return promedioPersonasEnAnden;
+    }
+
+    public float getPromedioDeEsperaEnAnden() {
+        return promedioDeEsperaEnAnden;
+    }
+
+    public float getPorcentajeDeArrepentidos() {
+        return porcentajeDeArrepentidos;
+    }
+
     @Override
     public String toString() {
         return "Resultado{" +
