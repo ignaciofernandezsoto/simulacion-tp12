@@ -1,10 +1,11 @@
 package modelo;
 
+import java.util.List;
+
 public class ConstructorDeResultado {
 
     public Resultado construir(int personasEnAnden,
-                               int sumatoriaLlegadas,
-                               int sumatoriaSalidas,
+                               List<Persona> pasajerosSalidos,
                                int personasQueIngresaronAlSistema,
                                int arrepentidos,
                                int minutosQueDuraElDia,
@@ -12,9 +13,8 @@ public class ConstructorDeResultado {
 
         int promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
 
-        float promedioEsperaEnAnden =
-                (float) (sumatoriaSalidas - sumatoriaLlegadas) /
-                        (minutosQueDuraElDia * diasQueDuroLaSimulacion);
+        int total = pasajerosSalidos.stream().mapToInt(Persona::getTiempoEnSistema).sum();
+        float promedioEsperaEnAnden = total / pasajerosSalidos.size();
 
         float porcentajeDeArrepentidos =
                 (float) arrepentidos * 100 /

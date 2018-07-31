@@ -1,22 +1,25 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Anden {
 
     private int personasLlegadasDelSubte;
-    private int personasLlegadasDeLaCalle;
+    private List<Persona> personasLlegadasDeLaCalle;
     private static final int capacidadMaxima = 358;
     private final int caudalSalida = 150;
 
     public Anden() {
         this.personasLlegadasDelSubte = 0;
-        this.personasLlegadasDeLaCalle = 0;
+        this.personasLlegadasDeLaCalle = new ArrayList<>();
     }
 
     public int getPersonasTotales() {
-        return personasLlegadasDelSubte + personasLlegadasDeLaCalle;
+        return personasLlegadasDelSubte + personasLlegadasDeLaCalle.size();
     }
 
     public int obtenerPersonasArrepentidas(int personasQueLlegan) {
@@ -46,15 +49,12 @@ public class Anden {
 
     }
 
-    public int getPersonasLlegadasDeLaCalle() {
+    public List<Persona> getPersonasLlegadasDeLaCalle() {
         return personasLlegadasDeLaCalle;
     }
 
-    public void agregarPersonasLlegadasDeLaCalle(int personasLlegadasDeLaCalle) {
-        int personasActualmenteEnAnden = this.getPersonasTotales();
-        int cantidadRestante = capacidadMaxima - personasActualmenteEnAnden;
-
-        this.personasLlegadasDeLaCalle += min(cantidadRestante, personasLlegadasDeLaCalle);
+    public void agregarPersonasLlegadasDeLaCalle(List<Persona> personasLlegadasDeLaCalle) {
+        this.personasLlegadasDeLaCalle.addAll(personasLlegadasDeLaCalle);
     }
 
     public void restarPersonasLlegadasDelSubte() {
@@ -65,10 +65,10 @@ public class Anden {
         }
     }
 
-    public int vaciarYObtenerPersonasDeLaCalleQueSalieron() {
+    public List<Persona> vaciarYObtenerPersonasDeLaCalleQueSalieron() {
             if(this.getPersonasTotales() < caudalSalida) {
                 this.personasLlegadasDelSubte = 0;
-                this.personasLlegadasDeLaCalle = 0;
+                this.personasLlegadasDeLaCalle = new ArrayList<>();
                 return this.personasLlegadasDeLaCalle;
             }
             else {
@@ -77,8 +77,12 @@ public class Anden {
                     return this.personasLlegadasDeLaCalle;
                 }
                 else {
-                    this.personasLlegadasDeLaCalle -= caudalSalida;
-                    return caudalSalida;
+                    List<Persona> personasQueSalen = new ArrayList<>();
+                    for(int i=0; i < caudalSalida; i++) {
+                        Persona persona = this.personasLlegadasDeLaCalle.remove(i);
+                        personasQueSalen.add(persona);
+                    }
+                    return personasQueSalen;
                 }
             }
     }
@@ -87,17 +91,18 @@ public class Anden {
         return capacidadMaxima;
     }
 
-    public int realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
+    public List<Persona> realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
             int personasQueQuierenBajarDelSubte,
             int espacioLibreSubteConLosQueBajan) {
 
-        int pasajerosQueQuierenSubir = this.personasLlegadasDeLaCalle;
+        List<Persona> pasajerosQueQuierenSubir = this.personasLlegadasDeLaCalle;
         int pasajerosQueQuierenBajar = personasQueQuierenBajarDelSubte;
 
-        if(pasajerosQueQuierenSubir <= espacioLibreSubteConLosQueBajan) {
+        if(pasajerosQueQuierenSubir.size() <= espacioLibreSubteConLosQueBajan) {
 
             this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
-            this.personasLlegadasDeLaCalle -= pasajerosQueQuierenSubir;
+
+            this.personasLlegadasDeLaCalle = new ArrayList<>();
             return pasajerosQueQuierenSubir;
 
         } else {
@@ -107,23 +112,27 @@ public class Anden {
                 this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
 
                 int pasajerosQueLograronSubir = min(
-                        espacioLibreSubteConLosQueBajan + pasajerosQueQuierenBajar,
-                        pasajerosQueQuierenSubir
+                        espacioLibreSubteConLosQueBajan - pasajerosQueQuierenBajar,
+                        pasajerosQueQuierenSubir.size()
                 );
 
-                this.personasLlegadasDeLaCalle -= pasajerosQueLograronSubir;
-                return pasajerosQueLograronSubir;
+                List<Persona> pasajerosSubidos = new ArrayList<>();
+                for(int i=0; i < pasajerosQueLograronSubir; i++) {
+                    Persona persona = this.personasLlegadasDeLaCalle.remove(i);
+                    pasajerosSubidos.add(persona);
+                }
+                return pasajerosSubidos;
 
             } else {
 
-                int pasajerosQueQuedanPorSubir = pasajerosQueQuierenSubir;
+                int pasajerosQueQuedanPorSubir  = pasajerosQueQuierenSubir.size();
+
                 int pasajerosQueQuedanPorBajar = pasajerosQueQuierenBajar;
 
                 while(pasajerosQueQuedanPorSubir > 0
                         && pasajerosQueQuedanPorBajar > 0) {
 
                     pasajerosQueQuedanPorSubir--;
-                    this.personasLlegadasDeLaCalle--;
                     pasajerosQueQuedanPorBajar--;
                     this.personasLlegadasDelSubte++;
 
@@ -136,13 +145,15 @@ public class Anden {
                     if(pasajerosQueQuedanPorSubir > 0) {
 
                         int pasajerosQueLograronSubir = min(
-                                        pasajerosQueQuierenSubir - pasajerosQueQuedanPorSubir,
-                                        espacioLibreSubteConLosQueBajan + pasajerosQueQuedanPorBajar
+                                        pasajerosQueQuierenSubir.size() - pasajerosQueQuedanPorSubir,
+                                        espacioLibreSubteConLosQueBajan - pasajerosQueQuedanPorBajar
                         );
-
-                        this.personasLlegadasDeLaCalle -= pasajerosQueLograronSubir;
-
-                        return pasajerosQueLograronSubir;
+                        List<Persona> personasSubidas = new ArrayList<>();
+                        for(int i=0; i < pasajerosQueLograronSubir; i++) {
+                            Persona persona = this.personasLlegadasDeLaCalle.remove(i);
+                            personasSubidas.add(persona);
+                        }
+                        return personasSubidas;
 
                     } else {
 

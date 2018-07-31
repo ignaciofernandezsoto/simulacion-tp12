@@ -5,6 +5,9 @@ import modelo.subte.TipoDeSubte;
 import modelo.turno.Turno;
 import modelo.turno.TurnoManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Simulacion {
 
     private final int avanceDelTiempo;
@@ -17,6 +20,7 @@ public class Simulacion {
     private int personasEnAndenPorMinuto;
     private int sumatoriaLlegadasDeLaCalle;
     private int sumatoriaSalidasDeLaCalle;
+    private List<Persona> pasajerosSalidosCalle;
 
     public Simulacion(int avanceDelTiempo,
                       int cantidadDeVagones,
@@ -36,6 +40,7 @@ public class Simulacion {
         this.personasEnAndenPorMinuto = 0;
         this.sumatoriaLlegadasDeLaCalle = 0;
         this.sumatoriaSalidasDeLaCalle = 0;
+        this.pasajerosSalidosCalle = new ArrayList<>();
 
     }
 
@@ -64,14 +69,19 @@ public class Simulacion {
                 int personasLlegadas = turno.cantPersonasQueLleganDeLaCalle();
                 this.personasQueEntraronAlSistemaDesdeLaCalle += personasLlegadas;
 
-                int arrepentidosActuales = anden.obtenerPersonasArrepentidas(personasLlegadas);;
+                int arrepentidosActuales = anden.obtenerPersonasArrepentidas(personasLlegadas);
 
                 cantArrepentidos += arrepentidosActuales;
 
                 int personasQueEntraronAlAnden = personasLlegadas - arrepentidosActuales;
 
-                this.sumatoriaLlegadasDeLaCalle += tiempo.getMinutosActuales() * personasQueEntraronAlAnden;
-                anden.agregarPersonasLlegadasDeLaCalle(personasQueEntraronAlAnden);
+                List<Persona> personasDeLaCalleAlAnden = new ArrayList<>();
+                for (int i = 0; i < personasQueEntraronAlAnden; i++) {
+                    personasDeLaCalleAlAnden.add(new Persona(tiempo.getMinutosActuales()));
+                }
+
+                //this.sumatoriaLlegadasDeLaCalle += tiempo.getMinutosActuales() * personasQueEntraronAlAnden;
+                anden.agregarPersonasLlegadasDeLaCalle(personasDeLaCalleAlAnden);
 
                 tiempo.avanzarMinutos(avanceDelTiempo);
             }
@@ -84,12 +94,15 @@ public class Simulacion {
 
                 int personasTotalesEnElSubte = personasQueSeQuedanEnElSubte + personasQueQuierenBajarDelSubte;
                 if (!(subte.estasLleno(personasTotalesEnElSubte) && anden.estasLleno())) {
-                    int pasajerosSubidos = anden
+                    List<Persona> pasajerosSubidos = anden
                             .realizarIntercambioDePasajerosYDevolverLosQuePudieronSubir(
                                     personasQueQuierenBajarDelSubte,
                                     subte.capacidadMaxima() - personasTotalesEnElSubte
                             );
-                    this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
+                    pasajerosSubidos.forEach(pasajeros -> pasajeros.setTiempoDeSalida(tiempo.getMinutosActuales()));
+                    this.pasajerosSalidosCalle.addAll(pasajerosSubidos);
+                    //this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
+
                 }
             }
             else
@@ -97,16 +110,17 @@ public class Simulacion {
 
         }
         while(anden.estasConGente()) {
-            int personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
-            this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
+            List<Persona> personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
+            personasDeLaCalleQueSalieron.forEach(personas -> personas.setTiempoDeSalida(tiempo.getMinutosActuales()));
+           // this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
+            this.pasajerosSalidosCalle.addAll(personasDeLaCalleQueSalieron);
             this.tiempo.avanzarMinutos(avanceDelTiempo);
         }
 
         return new ConstructorDeResultado()
                 .construir(
                         personasEnAndenPorMinuto,
-                        sumatoriaLlegadasDeLaCalle,
-                        sumatoriaSalidasDeLaCalle,
+                        pasajerosSalidosCalle,
                         personasQueEntraronAlSistemaDesdeLaCalle,
                         cantArrepentidos,
                         tiempo.getMinutosActuales(),
