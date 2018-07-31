@@ -13,7 +13,7 @@ public class Simulacion {
     private Tiempo tiempo;
     private int tiempoDeLlegadaSubte;
     private int cantArrepentidos;
-    private int personasQueEntraronAlSistemaDesdeLaCalle;
+    public int personasQueEntraronAlSistemaDesdeLaCalle;
     private int personasEnAndenPorMinuto;
     private int sumatoriaLlegadasDeLaCalle;
     private int sumatoriaSalidasDeLaCalle;

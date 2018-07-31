@@ -9,9 +9,9 @@ public class App {
         int vagones = 6;
         int eidans = 1;
         int CAFs = 2;
-        int frecuenciaManana = 15;
-        int frecuenciaTarde = 15;
-        int frecuenciaNoche = 15;
+        int frecuenciaManana = 30;
+        int frecuenciaTarde = 30;
+        int frecuenciaNoche = 6;
         final int avanceDelTiempo = 1;
         TipoDeSubte subteAComenzar = TipoDeSubte.CAF;
 
@@ -28,14 +28,16 @@ public class App {
 
         Resultado resultado = simulacion.simular();
 
+        System.out.println("------------------------");
         System.out.println("Vagones: " + vagones);
         System.out.println("Trenes Mitsubishi Eidan 500: " + eidans);
         System.out.println("Trenes CAF Serie 6000: " + CAFs);
         System.out.println("Frecuencia a la mañana: " + frecuenciaManana);
         System.out.println("Frecuencia a la tarde: " + frecuenciaTarde);
         System.out.println("Frecuencia a la noche: " + frecuenciaNoche);
-
+        System.out.println("Personas entradas desde la calle: " + simulacion.personasQueEntraronAlSistemaDesdeLaCalle);
         System.out.println(resultado);
+
 
     }
 
