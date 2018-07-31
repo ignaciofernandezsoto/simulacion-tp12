@@ -5,6 +5,7 @@ public class ConstructorDeResultado {
     public Resultado construir(int personasEnAnden,
                                int sumatoriaLlegadas,
                                int sumatoriaSalidas,
+                               int cantidadDeGenteDeCalleQueSalio,
                                int personasQueIngresaronAlSistema,
                                int arrepentidos,
                                int minutosQueDuraElDia,
@@ -13,8 +14,8 @@ public class ConstructorDeResultado {
         int promedioPersonasEnAndenPorMinuto = personasEnAnden / minutosQueDuraElDia*diasQueDuroLaSimulacion;
 
         float promedioEsperaEnAnden =
-                (float) (sumatoriaSalidas - sumatoriaLlegadas) /
-                        (minutosQueDuraElDia * diasQueDuroLaSimulacion);
+                (float) (sumatoriaSalidas - sumatoriaLlegadas) / cantidadDeGenteDeCalleQueSalio;
+
 
         float porcentajeDeArrepentidos =
                 (float) arrepentidos * 100 /

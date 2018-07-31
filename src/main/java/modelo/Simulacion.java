@@ -17,6 +17,7 @@ public class Simulacion {
     private int personasEnAndenPorMinuto;
     private int sumatoriaLlegadasDeLaCalle;
     private int sumatoriaSalidasDeLaCalle;
+    private int cantidadDeGenteDeCalleQueSalio;
 
     public Simulacion(int avanceDelTiempo,
                       int cantidadDeVagones,
@@ -36,6 +37,7 @@ public class Simulacion {
         this.personasEnAndenPorMinuto = 0;
         this.sumatoriaLlegadasDeLaCalle = 0;
         this.sumatoriaSalidasDeLaCalle = 0;
+        this.cantidadDeGenteDeCalleQueSalio = 0;
 
     }
 
@@ -90,6 +92,7 @@ public class Simulacion {
                                     subte.capacidadMaxima() - personasTotalesEnElSubte
                             );
                     this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
+                    this.cantidadDeGenteDeCalleQueSalio += pasajerosSubidos;
                 }
             }
             else
@@ -99,6 +102,7 @@ public class Simulacion {
         while(anden.estasConGente()) {
             int personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
             this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
+            this.cantidadDeGenteDeCalleQueSalio += personasDeLaCalleQueSalieron;
             this.tiempo.avanzarMinutos(avanceDelTiempo);
         }
 
@@ -107,6 +111,7 @@ public class Simulacion {
                         personasEnAndenPorMinuto,
                         sumatoriaLlegadasDeLaCalle,
                         sumatoriaSalidasDeLaCalle,
+                        cantidadDeGenteDeCalleQueSalio,
                         personasQueEntraronAlSistemaDesdeLaCalle,
                         cantArrepentidos,
                         tiempo.getMinutosActuales(),
