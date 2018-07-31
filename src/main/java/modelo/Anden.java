@@ -103,9 +103,7 @@ public class Anden {
             this.personasLlegadasDelSubte += pasajerosQueQuierenBajar;
 
             List<Persona> pasajerosSubidos = new ArrayList<>();
-            for(int i=0; i < personasLlegadasDeLaCalle.size(); i++){
-                pasajerosSubidos.add(this.personasLlegadasDeLaCalle.remove(i));
-            }
+            IntStream.range(0, personasLlegadasDeLaCalle.size()).forEach(i -> pasajerosSubidos.add(this.personasLlegadasDeLaCalle.remove(0)));
             this.personasLlegadasDeLaCalle = new ArrayList<>();
             return pasajerosSubidos;
 
