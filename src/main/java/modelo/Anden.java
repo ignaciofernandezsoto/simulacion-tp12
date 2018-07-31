@@ -152,9 +152,9 @@ public class Anden {
                         List<Persona> personasSubidas = new ArrayList<>();
 
                         IntStream.range(0,pasajerosQueLograronSubir).forEach(i -> {
-                            Persona persona = this.personasLlegadasDeLaCalle.remove(i);
-                            personasSubidas.add(persona);
-                        });
+                            personasSubidas.add(this.personasLlegadasDeLaCalle.remove(i));
+                        }
+                        );
                         return personasSubidas;
 
                     } else {
