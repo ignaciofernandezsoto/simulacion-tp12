@@ -77,7 +77,7 @@ public class Simulacion {
                         System.out.println("Se rompió el subte. La frecuencia pasa a ser menos");
                         this.tiempoDeReparacion.setValorInicial(tiempo.getMinutosActuales());
                         this.tiempoDeReparacion.setDiaQueInicio(tiempo.getDiasActuales());
-                        this.tiempoProximaReparacion = this.tiempoDeReparacion.obtenerValor();
+                        this.tiempoProximaReparacion = this.tiempoDeReparacion.obtenerValor(tiempo.getDiasActuales());
                         System.out.println("El tiempo de reparación será de: " + tiempoProximaReparacion);
                         System.out.println("El tiempo de ahora es de: " + tiempo.getMinutosActuales());
                         frecuenciaDeSubte *= 1.2;
@@ -127,7 +127,6 @@ public class Simulacion {
                                 );
                         pasajerosSubidos.forEach(pasajeros -> pasajeros.setTiempoDeSalida(tiempo.getMinutosActuales()));
                         this.pasajerosSalidosCalle.addAll(pasajerosSubidos);
-                        //this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * pasajerosSubidos;
 
                     }
                 } else
@@ -139,7 +138,6 @@ public class Simulacion {
         while(anden.estasConGente()) {
             List<Persona> personasDeLaCalleQueSalieron = anden.vaciarYObtenerPersonasDeLaCalleQueSalieron();
             personasDeLaCalleQueSalieron.forEach(personas -> personas.setTiempoDeSalida(tiempo.getMinutosActuales()));
-           // this.sumatoriaSalidasDeLaCalle += tiempo.getMinutosActuales() * personasDeLaCalleQueSalieron;
             this.pasajerosSalidosCalle.addAll(personasDeLaCalleQueSalieron);
             this.tiempo.avanzarMinutos(avanceDelTiempo);
         }

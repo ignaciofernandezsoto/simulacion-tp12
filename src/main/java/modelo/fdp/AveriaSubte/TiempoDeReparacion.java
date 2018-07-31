@@ -8,7 +8,7 @@ public class TiempoDeReparacion extends FDPIntervalos {
     private static int FIN_NOCHE = 1320; // 22pm
 
     private int valorInicial = 0;
-    private int valorFinal = FIN_NOCHE*365; // CUALQUIER DÍA DEL AÑO EN CUALQUIER HORARIO
+    private int valorFinal = 0;
     private int diaQueInicio = 0;
 
     @Override
@@ -19,6 +19,14 @@ public class TiempoDeReparacion extends FDPIntervalos {
     @Override
     public int valorFinal() {
         return valorFinal;
+    }
+
+    public int obtenerValor(int diasActuales) {
+        if(diasActuales != 365)
+            this.valorFinal = FIN_NOCHE * (365-diasActuales); // CUALQUIER HORARIO DENTRO DEL AÑO
+        else
+            this.valorFinal = FIN_NOCHE; // VA A SER EL ULTIMO DIA DEL AÑO QUE VA A TENER QUE REPARARSE SÍ O SÍ ESE DÍA
+        return super.obtenerValor();
     }
 
     public void setValorInicial(int valorInicial) {
@@ -32,4 +40,5 @@ public class TiempoDeReparacion extends FDPIntervalos {
     public int getDiaQueInicio() {
         return diaQueInicio;
     }
+
 }
